@@ -10,6 +10,13 @@ exampleSocket.onmessage = async function (event) {
 };
 
 export default class Text_editor extends React.Component {
+  componentDidMount() {
+    setInterval(() => {
+      exampleSocket.send("**");
+      this.setState({ value2: response });
+    }, 500);
+  }
+
   state = {
     value: "",
     value2: "",
@@ -19,10 +26,6 @@ export default class Text_editor extends React.Component {
     this.setState({ value: value });
 
     exampleSocket.send(value);
-
-    exampleSocket.send("**");
-
-    this.setState({ value2: response });
   }
 
   render() {
