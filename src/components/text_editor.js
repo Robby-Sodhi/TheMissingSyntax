@@ -2,6 +2,12 @@ import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+var exampleSocket = new WebSocket("ws://99.235.37.139:8000/");
+
+exampleSocket.onmessage = async function (event) {
+  console.log(await event.data.text());
+};
+
 export default class Text_editor extends React.Component {
   state = {
     value: "",
@@ -9,16 +15,12 @@ export default class Text_editor extends React.Component {
 
   async setValue(value) {
     this.setState({ value: value });
-    response = await fetch("localhost:8000", {
-      method: "post",
-      mode: "cors",
-      headers: {
-        "Content-Type": "text/plain",
-        body: value,
-      },
-    });
-    console.log(response);
+
+    exampleSocket.send(value);
+
+    exampleSocket.send("SendMeFuckingData");
   }
+
   render() {
     return (
       <div>
