@@ -1,9 +1,9 @@
 import "./index.css";
-import React from "react";
 import ReactDOM from "react-dom";
+import Text_editor from "./components/text_editor";
 
 function App() {
-  return <p>test</p>;
+  return <Text_editor />;
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
