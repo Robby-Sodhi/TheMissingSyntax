@@ -3,14 +3,16 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 var exampleSocket = new WebSocket("ws://99.235.37.139:8000/");
-
+let response;
 exampleSocket.onmessage = async function (event) {
-  console.log(await event.data.text());
+  response = await event.data;
+  console.log(response);
 };
 
 export default class Text_editor extends React.Component {
   state = {
     value: "",
+    value2: "",
   };
 
   async setValue(value) {
@@ -18,12 +20,20 @@ export default class Text_editor extends React.Component {
 
     exampleSocket.send(value);
 
-    exampleSocket.send("SendMeFuckingData");
+    exampleSocket.send("**");
+
+    this.setState({ value2: response });
   }
 
   render() {
     return (
       <div>
+        <ReactQuill
+          theme="snow"
+          value={this.state.value}
+          onChange={(value) => this.setValue(value)}
+        />
+
         <ReactQuill
           theme="snow"
           value={this.state.value}
