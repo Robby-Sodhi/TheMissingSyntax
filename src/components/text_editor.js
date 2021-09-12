@@ -22,6 +22,9 @@ export default class Text_editor extends React.Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    if (exampleSocket != null) {
+      exampleSocket.close();
+    }
     exampleSocket = new WebSocket(
       `ws://99.234.19.166:8000/${this.state.room_pin}`
     );
